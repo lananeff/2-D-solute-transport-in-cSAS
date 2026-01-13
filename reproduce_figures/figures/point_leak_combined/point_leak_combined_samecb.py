@@ -1,3 +1,31 @@
+"""
+Figure 9 (final assembly): Comparison of point-leak transport with and without
+production–drainage flow.
+
+This script assembles the final composite figure for Fig. 9 by arranging
+ParaView-rendered concentration snapshots into a multi-panel layout. Panels
+compare solute transport in a point-leak geometry with zero production–drainage
+flow (u_pd = 0) against the corresponding case with non-zero production–drainage
+flow (u_pd ≠ 0).
+
+The figure is organised as:
+- rows: increasing oscillatory Péclet number (Pe),
+- columns: selected non-dimensional times and steady-state snapshots,
+  with the final column showing the production–drainage case.
+
+Transparent padding is cropped from each image to ensure consistent alignment.
+Row-wise colour bars are added to indicate concentration magnitude.
+
+Inputs:
+- Preprocessed snapshot images:
+    figures/paraview_figs/fig_9/point_leak_0.8/combos/combined_images_<index>.png
+    figures/paraview_figs/fig_9/pd_point_leak_0.8/combos/combined_images_<index>.png
+
+Output:
+- Final composite figure saved to:
+    outputs/point_leak_combined_0.8_cb.png
+"""
+
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import os
@@ -14,10 +42,10 @@ set_matplotlib_defaults()
 pd_keep = [4, 8, 12]
 not_pd_keep = [1, 3, 4, 5, 7, 8, 9, 11, 12]
 
-image_folder = "./figures/paraview figs/fig 8/point_leak_0.8/combos/"
+image_folder = "./figures/paraview figs/fig 9/point_leak_0.8/combos/"
 image_files = [os.path.join(image_folder, f"combined_images_{i}.png") for i in not_pd_keep]
 
-pd_image_folder = "./figures/paraview figs/fig 8/pd_point_leak_0.8/combos/"
+pd_image_folder = "./figures/paraview figs/fig 9/pd_point_leak_0.8/combos/"
 pd_image_files = [os.path.join(pd_image_folder, f"combined_images_{i}.png") for i in pd_keep]
 
 # build ordered list: 3 not-pd + 1 pd per row
