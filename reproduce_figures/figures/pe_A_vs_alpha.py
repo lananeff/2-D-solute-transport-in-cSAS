@@ -1,5 +1,18 @@
-""" Produces figure 2 in paper.
 """
+Figure 2: Regime map in (A, alpha) space.
+
+This script reproduces Fig. 2 of the paper by plotting the dimensionless quantity
+Pe = alpha^2 * A * S over a log-spaced grid in (A, alpha), and overlaying the
+parameter ranges corresponding to the cardiac, respiratory, and sleep regimes for
+human and mouse (from `src/parameters.py`).
+
+Output:
+- outputs/pe_A_vs_alpha_human_mouse.png
+
+Run:
+    python pe_A_vs_alpha_human_mouse.py
+"""
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 from velocities import uL, vL
@@ -88,5 +101,6 @@ plt.xlim(np.min(A_values), np.max(A_values))
 plt.ylim(np.min(alpha_values), np.max(alpha_values))
 
 plt.tight_layout()
+os.makedirs("outputs", exist_ok=True)
 plt.savefig("outputs/pe_A_vs_alpha_human_mouse.png", dpi=300, bbox_inches="tight")
 

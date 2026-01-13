@@ -1,3 +1,29 @@
+"""
+Figure 5: Maximum velocity magnitude vs amplitude A, with stacked flow profiles.
+
+This script reproduces the figure used in the paper that:
+1) computes the maximum (over x,y) magnitude of several analytical velocity fields
+   as a function of oscillation amplitude A, and
+2) shows three representative spatial profiles (stacked panels) at selected A values.
+
+Model/inputs:
+- Analytical velocity fields are imported from `velocities/`.
+- Parameter values (alpha, eps, omega, h) are taken from `src/parameters.py`
+  for the chosen species (currently hard-coded as `species = "human"`).
+
+Outputs:
+- Saves: outputs/max_vs_A_and_stacked_profiles.png
+
+Usage:
+- Run from the repository root (after environment setup):
+    python max_vs_A_and_stacked_profiles.py
+
+Notes:
+- The amplitude sweep is log-spaced (As = 1e-3 ... 1e-1).
+- The right-hand panels plot the magnitude of the (scaled) Lagrangian + production–drainage
+  velocity field, with vectors overlaid.
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
@@ -16,6 +42,7 @@ set_matplotlib_defaults()
 plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
 def sci_notation_2sf(x, _):
+    """Format tick labels in scientific notation with ~2 significant figures."""
     if x == 0:
         return "0"
     exponent = int(np.floor(np.log10(abs(x))))
