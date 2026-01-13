@@ -117,31 +117,11 @@ for k in range(3):
     fig.text(0.1, y_position, panel_labels[2*k], fontsize=12, ha='right', va='center', fontweight='bold')
     fig.text(0.7, y_position, panel_labels[2*k+1], fontsize=12, ha='right', va='center', fontweight='bold')
 
-# norm_ranges = [
-#     (0, 2),  # Row 1, col 3
-#     (0, 20),  # Row 1, col 4
-#     (0, 0.8),
-#     (0, 2.5), # Row 2, col 3
-#     (0, 6), # Row 2, col 4
-#     (0, 3.5),
-#     (0, 3),  # Row 3, col 3
-#     (0, 3),   # Row 3, col 4
-#     (0, 3)
-# ]
-
 norm_ranges = [(0,5), (0,5), (0,5)]
 
 norms = [Normalize(vmin=v[0], vmax=v[1]) for v in norm_ranges]
 cmaps = ['coolwarm'] * 3
 
-# for row in range(3):
-#     ax = axes[row * 4 + 1]  # 2nd column cbar
-#     divider = make_axes_locatable(ax)
-#     cax = divider.append_axes("right", size="5%", pad=0.05)
-#     sm = ScalarMappable(norm=norms[row * 3 ], cmap=cmaps[row])
-#     sm.set_array([])
-#     cbar = fig.colorbar(sm, cax=cax, orientation='vertical')
-#     cbar.ax.tick_params(labelsize=8)
 
 for row in range(3):
     ax = axes[row * 4 + 3]  # 4th column cbar
@@ -153,19 +133,10 @@ for row in range(3):
     cbar.set_label("Concentration", fontsize=8)
     cbar.ax.tick_params(labelsize=8)
 
-# for row in range(3):
-#     ax = axes[row * 4 + 2]  # 3rd column cbar
-#     divider = make_axes_locatable(ax)
-#     cax = divider.append_axes("right", size="5%", pad=0.05)
-#     sm = ScalarMappable(norm=norms[row * 3+1], cmap=cmaps[row])
-#     sm.set_array([])
-#     cbar = fig.colorbar(sm, cax=cax, orientation='vertical')
-#     cbar.ax.tick_params(labelsize=8)
-
 fig.text(0.4, 0.94, r"$u_{pd}=0$", ha="center", va="bottom", fontsize=11)
 fig.text(0.78, 0.94, r"$u_{pd}\neq 0$", ha="center", va="bottom", fontsize=11)
 
 
 
 plt.tight_layout()
-plt.savefig('outputs/point_leak_combined_0.8_cb.png')
+plt.savefig('outputs/point_leak_combined_0.8.png')
