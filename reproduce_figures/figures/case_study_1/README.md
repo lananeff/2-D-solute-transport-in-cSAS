@@ -12,7 +12,7 @@ with naming convention pe_{pe_s}_t{time}.png
 
 ## Reproducing the figure
 
-From the reproduce_figures/figures/ directory, run the following scripts in *order*:
+From the reproduce_figures/figures/case_study_1/ directory, run the following scripts in *order*:
 ```bash
 python3 concentration_int.py
 python3 pre_stack.py
