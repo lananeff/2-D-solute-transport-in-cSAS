@@ -144,6 +144,7 @@ Output:
 
 Notes:
 - Requires ParaView-exported images from FEniCS simulations.
+- Image paths are assumed to follow the directory structure used in the repository.
 
 ---
 
@@ -184,3 +185,4 @@ Output:
 
 Notes:
 - Requires ParaView-exported steady-state images from FEniCS simulations.
+- Image paths are assumed to follow the directory structure used in the repository.
