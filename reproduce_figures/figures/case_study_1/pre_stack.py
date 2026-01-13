@@ -4,7 +4,7 @@ import numpy as np
 from src import stack_images_vertically
 
 # Define image folder
-image_folder = "./figures/paraview figs/fig 6/"
+image_folder = "./figures/paraview figs/fig 8/"
 output_folder = os.path.join(image_folder, "combos")
 os.makedirs(output_folder, exist_ok=True)
 

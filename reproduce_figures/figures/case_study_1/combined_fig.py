@@ -10,7 +10,7 @@ from matplotlib.colors import Normalize
 plt.rcParams.update(get_font_parameters())
 set_matplotlib_defaults()
 
-image_folder = "./figures/paraview figs/fig 6/combos/"  # Go up one level and into the correct folder
+image_folder = "./figures/paraview figs/fig 8/combos/"  # Go up one level and into the correct folder
 
 # Dynamically list the combined images
 image_files = [os.path.join(image_folder, f"combined_images_{i+1}.png") for i in range(12)]
@@ -113,4 +113,4 @@ cbar.ax.tick_params(labelsize=9)
 # Adjust layout
 plt.tight_layout()
 
-plt.savefig('outputs/different_pe.png')
+plt.savefig('outputs/case_study_1.png')

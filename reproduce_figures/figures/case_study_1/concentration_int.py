@@ -1,3 +1,24 @@
+"""
+Figure 8 (pre-processing): Extract 1-D concentration profiles from simulation output.
+
+This script reads concentration data exported from FEniCS simulations for a Gaussian
+bolus case and generates 1-D concentration profiles at selected time steps.
+Each profile is saved as a transparent PNG image for later stacking and combination
+into the final Fig. 8 composite.
+
+Inputs:
+- Concentration data files:
+  <base_path>/default_case_100_200_<Pe>/default_case_100_200_<Pe>_concentration.txt
+
+Outputs:
+- One PNG per (Pe, time index), saved to:
+  figures/paraview_figs/fig_8/concentration_int/
+
+Notes:
+- Time steps are selected via row indices in the concentration file.
+- Images are saved without axes for clean compositing in later scripts.
+"""
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,13 +28,13 @@ sigma_gauss = 0.005
 xi_gauss = 0.75
 # Base path and file pattern
 pe_vals = [0.1,1.0, 10.0]
-#pe_vals = [1.0, 10.000000000000002, 100.00000000000004]
-#pe_vals =[43.86490844928602]
+
+# Base path where simulation is saved.
 base_path = '/home/s2611897/Desktop/FEniCS/Dispersion-2D3D/output/casestudies/gaussian'
 file_pattern = '{base_path}/default_case_100_200_{pe_vals}/default_case_100_200_{pe_vals}_concentration.txt'
 
 # Save image location
-image_folder = "./figures/paraview figs/fig 6/concentration_int/"
+image_folder = "./figures/paraview figs/fig 8/concentration_int/"
 
 # Define a list of indices (locations) to loop through
 locations = [0, 11, 21, 31]  # These indices correspond to the rows in the data pe bigger
