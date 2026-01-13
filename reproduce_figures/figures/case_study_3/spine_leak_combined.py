@@ -1,3 +1,31 @@
+"""
+Figure 11 (final assembly): Steady states for spinal leak with and 
+without production--drainage flow.
+
+This script constructs a two-row composite figure comparing steady-state
+concentration fields with and without production–drainage effects.
+
+Top row:
+- Standard steady-state simulations (no production–drainage),
+  loaded from Figure 11 outputs.
+
+Bottom row:
+- Corresponding steady-state simulations with production–drainage,
+  loaded from Figure 11 outputs.
+
+For each case, images are:
+- Cropped to remove transparent margins,
+- Arranged by increasing Péclet number,
+- Displayed with consistent spatial axes and a shared colorbar.
+
+The resulting figure is saved as:
+    outputs/spine_leak_combined_ss.png
+
+Expected input directories:
+- figures/paraview figs/fig 11/ss/combos/
+- figures/paraview figs/fig 11/ss/pd/combos/
+"""
+
 import matplotlib.pyplot as plt
 import os
 import numpy as np
@@ -11,8 +39,8 @@ plt.rcParams.update(get_font_parameters())
 set_matplotlib_defaults()
 
 # === Paths to image folders ===
-image_folder_standard = "./figures/paraview figs/fig 10/ss/combos/"
-image_folder_pd = "./figures/paraview figs/fig 10/ss/pd/combos/"
+image_folder_standard = "./figures/paraview figs/fig 11/ss/combos/"
+image_folder_pd = "./figures/paraview figs/fig 11/ss/pd/combos/"
 image_files_standard = [os.path.join(image_folder_standard, f"combined_images_{i+1}.png") for i in range(3)]
 image_files_pd = [os.path.join(image_folder_pd, f"combined_images_{i+1}.png") for i in range(3)]
 
