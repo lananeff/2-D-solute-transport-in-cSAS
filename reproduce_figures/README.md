@@ -17,12 +17,6 @@ The scripts reproduce the final figures and document the modelling, parameter ch
 ```
 ---
 
-## Figures generated directly from Python
-
-These figures are produced entirely by running the Python scripts in this repository and do not require external simulation output.
-
----
-
 ### Figure 2 — Transport regime map
 
 Figure 2 shows the Péclet number Pe as the oscillation amplitude A and frequency ω are varied, highlighting distinct transport regimes.
