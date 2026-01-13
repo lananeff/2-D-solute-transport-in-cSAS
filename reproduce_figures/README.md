@@ -17,6 +17,10 @@ The scripts reproduce the final figures and document the modelling, parameter ch
 ```
 ---
 
+## Figures generated directly from Python
+Figures produced in python are summarised here.
+Note that figures 8, 9 and 11 require simulation outputs generated from the fenics depository.
+
 ### Figure 2 — Transport regime map
 
 Figure 2 shows the Péclet number Pe as the oscillation amplitude A and frequency ω are varied, highlighting distinct transport regimes.
@@ -32,7 +36,6 @@ Output:
 
 Notes:
 - Human and mouse icons are added later in the LaTeX manuscript.
-- This script runs quickly.
 
 ---
 
