@@ -1,0 +1,116 @@
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import os
+import numpy as np
+from PIL import Image
+from src.figure_format import get_font_parameters, set_matplotlib_defaults
+from matplotlib.cm import ScalarMappable
+from matplotlib.colors import Normalize
+
+plt.rcParams.update(get_font_parameters())
+set_matplotlib_defaults()
+
+image_folder = "./figures/paraview figs/fig 6/combos/"  # Go up one level and into the correct folder
+
+# Dynamically list the combined images
+image_files = [os.path.join(image_folder, f"combined_images_{i+1}.png") for i in range(12)]
+
+
+
+# Create a 4x3 figure
+fig, axes = plt.subplots(3, 4, figsize=(6, 8))
+
+
+# Flatten the axes array for easy iteration
+axes = axes.flatten()
+
+titles = [r"$\tau$ = 0", r"$\tau$  = 0.5", r"$\tau$  = 1", r"$\tau$  = 1.5"]
+row_labels = [
+    r"$Pe = 0.01$",
+    r"$Pe = 1$",
+    r"$Pe = 100$"
+]
+
+panel_labels = ['(a)', '(b)', '(c)']
+
+def crop_transparency(img):
+    """Remove transparent background from an RGBA image"""
+    if img.mode != 'RGBA':
+        img = img.convert('RGBA')  # Ensure image has alpha channel
+    
+    img_array = np.array(img)  # Convert to NumPy array
+    alpha_channel = img_array[:, :, 3]  # Extract alpha channel
+    
+    # Find bounding box of non-transparent pixels
+    non_transparent = np.where(alpha_channel > 0)  
+    if non_transparent[0].size == 0:  
+        return img  # Return original if fully transparent
+    
+    y_min, y_max = np.min(non_transparent[0]), np.max(non_transparent[0])
+    x_min, x_max = np.min(non_transparent[1]), np.max(non_transparent[1])
+    
+    # Crop and return image
+    return img.crop((x_min, y_min, x_max, y_max))
+
+# Loop through images and add to subplots
+for img_file in image_files:
+    print(img_file, "Exists:", os.path.exists(img_file))
+
+for i, img_file in enumerate(image_files):
+    if os.path.exists(img_file):
+        img = Image.open(img_file)
+        img = crop_transparency(img)  # Crop transparency
+        axes[i].imshow(img)
+
+        width, height = img.size
+    axes[i].axis("on")  # Show axes (set to "off" if you don't want them)
+
+    axes[i].set_xticks([width * 0, width * 0.5, width])  # Normalized positions
+    axes[i].set_xticklabels([0.5, 0.75, 1])  # Desired tick labels
+    axes[i].set_xlabel('$x$')
+    
+    axes[i].set_yticks([height * 0, height * 0.4725, height*0.9125])  # Normalized positions
+    axes[i].set_yticklabels([0, -0.5, -1])  # Desired tick labels
+    axes[i].set_ylabel('$\eta$')
+
+    # **Only show titles for the first row**
+    if i < 4:  # First row indices are 0, 1, 2, 3
+        axes[i].set_title(titles[i], fontsize=12)  # Set title
+
+    # **Only show x-axis labels for the last row**
+    if i < 8:  # If not in the last row, remove x-axis ticks and labels
+        axes[i].set_xticklabels([])
+        axes[i].set_xticks([])
+        axes[i].set_xlabel('')
+
+    # **Only show y-axis labels for the first column**
+    if i % 4 != 0:  # If not in the first column, remove y-axis ticks and labels
+        axes[i].set_yticklabels([])
+        axes[i].set_yticks([])
+        axes[i].set_ylabel('')
+
+for k in range(3):
+    y_position = 0.96 - k * 0.3  # Adjust vertical position to match rows
+    
+    # Row label (e.g., "Pe = 0.1")
+    # fig.text(0.01, y_position, row_labels[k], fontsize=12,
+    #          ha='left', va='center', rotation=90)
+    
+    # Panel label (e.g., "(a)")
+    fig.text(0, y_position, panel_labels[k], fontsize=12,
+             ha='right', va='center', fontweight='bold')
+
+# === Add colorbar at the bottom center ===
+cbar_ax = fig.add_axes([0.25, -0.025, 0.5, 0.02])  # [left, bottom, width, height]
+norm = Normalize(vmin=0, vmax=1)
+sm = ScalarMappable(cmap='coolwarm', norm=norm)
+sm.set_array([])  # Needed for matplotlib < 3.1
+
+cbar = fig.colorbar(sm, cax=cbar_ax, orientation='horizontal')
+cbar.set_label('Concentration', fontsize=10)
+cbar.ax.tick_params(labelsize=9)
+
+# Adjust layout
+plt.tight_layout()
+
+plt.savefig('outputs/different_pe.png')
