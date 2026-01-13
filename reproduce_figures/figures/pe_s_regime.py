@@ -1,3 +1,32 @@
+"""
+Figure 6: Steady streaming transport regime map (Pe_s) in (A, alpha) space.
+
+This script generates the regime-map figure used in the paper by computing a steady streaming
+ Péclet number over a grid of amplitude A and frequency parameter alpha:
+
+    Pe_s = alpha^4 * A^2 * S * u_scale
+
+where S and eps are taken from `src/parameters.PARAMETERS` for a chosen species.
+u_scale=0.006 is required to correctly scale steady streaming longitudinal velocity component. 
+Analytical velocity fields u_L and v_L are evaluated on a 2-D grid to compute
+max|u_L| and max|v_L| (used for scaling/diagnostics).
+
+The script overlays:
+- boxed parameter ranges for cardiac, respiratory, and sleep regimes (for the selected species),
+- the boundary A = 1/(alpha^2 S eps),
+- the balance curve Pe_s = Pe_pd (using a fixed pdscale),
+- coloured square markers at selected (A, alpha) points, with legend entries showing Pe_s.
+
+Usage:
+Default runs for human:
+    python pe_osc_regime_logscale_u.py
+Or for mouse:
+    python pe_osc_regime_logscale_u.py --species mouse
+
+Output:
+- outputs/pe_osc_regime_logscale_u.png
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
@@ -24,7 +53,7 @@ def get_parameters(species):
 
 # Command-line argument parsing
 parser = argparse.ArgumentParser(description="Select CSF transport parameters.")
-parser.add_argument("species", choices=["human", "mouse"], help="Choose species: human or mouse")
+parser.add_argument("--species", choices=["human", "mouse"], default = "human", help="Choose species: human or mouse")
 
 args = parser.parse_args()
 params = get_parameters(args.species)
